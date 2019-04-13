@@ -1,0 +1,43 @@
+%YAML 1.2
+---
+
+name: SemiCollection
+file_extensions: semicoll
+scope: source.semicoll
+
+variables:
+  str_keywords: \b(name|spritesheet)\b
+  identifier: "[a-z0-9_]*"
+  unit: ((\d+)x(\d+))
+  geometry: ((\d+),(\d+))(([\t ]+)((\d+)x(\d+)))?
+
+contexts:
+  main:
+    - match: "(@id)[ \\t]*({{identifier}}$)"
+      captures:
+        1: keyword.control.semicoll
+        2: string.unquoted.semicoll
+    - match: "(@{{str_keywords}})[ \\t]*(.*)"
+      captures:
+        1: keyword.control.semicoll
+        3: string.unquoted.semicoll
+    - match: "(@(unit|size))[ \\t]*{{unit}}"
+      captures:
+        1: keyword.control.semicoll
+        3: constant.numeric.semicoll
+    - match: "^({{identifier}})[ \\t]+({{geometry}})?"
+      captures:
+        1: string.unquoted.semicoll
+        3: constant.numeric.semicoll
+        8: constant.numeric.semicoll
+      push:
+        - meta_scope: meta.function-call
+        - match: \b(fliph|flipv)\b
+          scope: keyword.control.semicoll
+        - match: "( (override)[\t ]+(.+))?[\t ]*$"
+          captures:
+            2: keyword.control.semicoll
+            3: string.unquoted.semicoll
+          pop: true
+    - match: "^.*$"
+      scope: invalid.illegal

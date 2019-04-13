@@ -1,0 +1,61 @@
+%YAML 1.2
+---
+
+name: SemiAnimation
+file_extensions: semianim
+scope: source.semianim
+
+variables:
+  str_keywords: \b(name|collection)\b
+  identifier: "[a-z0-9_]+"
+
+contexts:
+  main:
+    - match: "(@defaultfps)[ \\t]+(\\d+)"
+      captures:
+        1: keyword.control.semianim
+        2: constant.numeric.semianim
+    - match: "(@id)[ \\t]+({{identifier}}$)"
+      captures:
+        1: keyword.control.semianim
+        2: string.unquoted.semianim
+    - match: "(@{{str_keywords}})[ \\t]*(.*)"
+      captures:
+        1: keyword.control.semianim
+        3: string.unquoted.semianim
+    - match: "^(clip)[\t ]+({{identifier}})\\s*"
+      captures:
+        1: keyword.control.semianim
+        2: string.unquoted.semianim
+      push:
+        - meta_scope: meta.function-call
+        - match: (prefix)\s+({{identifier}})\s*
+          captures: 
+            1: keyword.control.semianim
+            2: support.class.semianim
+        - match: (fps)\s+(\d+)\s*
+          captures: 
+            1: keyword.control.semianim
+            2: constant.numeric.semianim
+        - match: (wrapmode)\s+(loopsection|loopfidget|once|pingpong|randomframe|randomloop|single|loop)\s*
+          captures: 
+            1: keyword.control.semianim
+            2: constant.language.semianim
+        - match: ":\\s*$"
+          pop: true
+        - match: (^.*$|.)
+          scope: invalid.illegal
+    - match: "^[\t ]*(({{identifier}}):)?(.*?)\\s*(?=invulnerable|offground|$)"
+      captures:
+        2: support.class.semianim
+        3: string.unquoted.semianim
+      push: 
+        - meta_scope: meta.function-call
+        - match: (invulnerable|offground)\s
+          scope: keyword.control.semianim
+        - match: $
+          pop: true
+        - match: .
+          scope: invalid.illegal
+    - match: "^.*$"
+      scope: invalid.illegal
