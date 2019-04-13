@@ -2,7 +2,7 @@
 ---
 
 name: SemiCollection
-file_extensions: semi.coll
+file_extensions: [ semi.coll ]
 scope: source.semicoll
 
 variables:

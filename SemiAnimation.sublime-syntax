@@ -2,12 +2,13 @@
 ---
 
 name: SemiAnimation
-file_extensions: semi.anim
+file_extensions: [ semi.anim ]
 scope: source.semianim
 
 variables:
   str_keywords: \b(name|collection)\b
   identifier: "[a-z0-9_]+"
+  any_identifier: "[A-Za-z0-9_]+"
 
 contexts:
   main:
@@ -23,7 +24,7 @@ contexts:
       captures:
         1: keyword.control.semianim
         3: string.unquoted.semianim
-    - match: "^(clip)[\t ]+({{identifier}})\\s*"
+    - match: "^(clip)[\t ]+({{any_identifier}})\\s*"
       captures:
         1: keyword.control.semianim
         2: string.unquoted.semianim
