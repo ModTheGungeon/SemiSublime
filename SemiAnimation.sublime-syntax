@@ -2,7 +2,7 @@
 ---
 
 name: SemiAnimation
-file_extensions: semianim
+file_extensions: semi.anim
 scope: source.semianim
 
 variables:
