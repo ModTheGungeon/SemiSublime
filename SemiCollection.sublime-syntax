@@ -13,10 +13,19 @@ variables:
 
 contexts:
   main:
-    - match: "(@id)[ \\t]*({{identifier}}$)"
+    - match: "(@patch)\\s+$"
+      captures:
+        1: keyword.control.semicoll
+    - match: "(@attachpoint)\\s+([^ \\t]+)\\s+(.+)$"
+      captures:
+        1: keyword.control.semicoll
+        2: support.class.semicoll
+        3: string.unquoted.semicoll
+    - match: "(@id)[ \\t]+({{identifier}}$)"
       captures:
         1: keyword.control.semicoll
         2: string.unquoted.semicoll
+        3: string.unquoted.semicoll
     - match: "(@{{str_keywords}})[ \\t]*(.*)"
       captures:
         1: keyword.control.semicoll
@@ -34,10 +43,20 @@ contexts:
         - meta_scope: meta.function-call
         - match: \b(fliph|flipv)\b
           scope: keyword.control.semicoll
+        - match: "(\\s+(at)\\s+([^ \\t]+)\\s+([0-9.\\-]+)\\s+([0-9.\\-]+)(\\s+angle\\s+([0-9.\\-]+))?)?"
+          captures:
+            2: keyword.control.semicoll
+            3: support.class.semicoll
+            4: constant.numeric.semicoll
+            5: constant.numeric.semicoll
+            6: keyword.control.semicoll
+            7: constant.numeric.semicoll
         - match: "( (override)[\t ]+(.+))?[\t ]*$"
           captures:
             2: keyword.control.semicoll
             3: string.unquoted.semicoll
           pop: true
+        - match: .
+          scope: invalid.illegal
     - match: "^.*$"
       scope: invalid.illegal
