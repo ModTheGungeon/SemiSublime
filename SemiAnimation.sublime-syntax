@@ -12,6 +12,9 @@ variables:
 
 contexts:
   main:
+    - match: "(@patch)\\s+$"
+      captures:
+        1: keyword.control.semianim
     - match: "(@defaultfps)[ \\t]+(\\d+)"
       captures:
         1: keyword.control.semianim
