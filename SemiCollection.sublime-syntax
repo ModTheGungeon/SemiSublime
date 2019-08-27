@@ -13,6 +13,11 @@ variables:
 
 contexts:
   main:
+    - match: "(@namespace)[ \\t]+({{identifier}}$)"
+      captures:
+        1: keyword.control.semicoll
+        2: string.unquoted.semicoll
+        3: string.unquoted.semicoll
     - match: "(@patch)\\s+$"
       captures:
         1: keyword.control.semicoll

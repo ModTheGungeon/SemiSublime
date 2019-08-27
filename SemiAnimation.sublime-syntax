@@ -12,6 +12,10 @@ variables:
 
 contexts:
   main:
+    - match: "(@namespace)[ \\t]+({{identifier}}$)"
+      captures:
+        1: keyword.control.semianim
+        2: string.unquoted.semianim
     - match: "(@patch)\\s+$"
       captures:
         1: keyword.control.semianim
