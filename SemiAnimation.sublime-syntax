@@ -9,10 +9,11 @@ variables:
   str_keywords: \b(name|collection)\b
   identifier: "[a-z0-9_]+"
   any_identifier: "[A-Za-z0-9_]+"
+  namespace_identifier: "[@a-z0-9_]*"
 
 contexts:
   main:
-    - match: "(\\$namespace)[ \\t]+({{identifier}}$)"
+    - match: "(\\$namespace)[ \\t]+({{namespace_identifier}}$)"
       captures:
         1: keyword.control.semianim
         2: string.unquoted.semianim
@@ -37,7 +38,7 @@ contexts:
         2: string.unquoted.semianim
       push:
         - meta_scope: meta.function-call
-        - match: (prefix)\s+({{identifier}})\s*
+        - match: (prefix)\s+({{namespace_identifier}})\s*
           captures: 
             1: keyword.control.semianim
             2: support.class.semianim
@@ -53,7 +54,7 @@ contexts:
           pop: true
         - match: (^.*$|.)
           scope: invalid.illegal
-    - match: "^[\t ]*(({{identifier}}):)?(.*?)\\s*(?=invulnerable|offground|$)"
+    - match: "^[\t ]*(({{namespace_identifier}}):)?(.*?)\\s*(?=invulnerable|offground|$)"
       captures:
         2: support.class.semianim
         3: string.unquoted.semianim

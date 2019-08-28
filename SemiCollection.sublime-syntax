@@ -8,12 +8,13 @@ scope: source.semicoll
 variables:
   str_keywords: \b(name|spritesheet)\b
   identifier: "[a-z0-9_\\-]*"
+  namespace_identifier: "[@a-z0-9_]*"
   unit: ((\d+)x(\d+))
   geometry: ((\d+),(\d+))(([\t ]+)((\d+)x(\d+)))?
 
 contexts:
   main:
-    - match: "(\\$namespace)[ \\t]+({{identifier}}$)"
+    - match: "(\\$namespace)[ \\t]+({{namespace_identifier}}$)"
       captures:
         1: keyword.control.semicoll
         2: string.unquoted.semicoll
@@ -39,7 +40,7 @@ contexts:
       captures:
         1: keyword.control.semicoll
         3: constant.numeric.semicoll
-    - match: "^({{identifier}}:)?({{identifier}})[ \\t]+({{geometry}})?"
+    - match: "^({{namespace_identifier}}:)?({{identifier}})[ \\t]+({{geometry}})?"
       captures:
         1: keyword.control.semicoll
         2: string.unquoted.semicoll
