@@ -12,22 +12,22 @@ variables:
 
 contexts:
   main:
-    - match: "(@namespace)[ \\t]+({{identifier}}$)"
+    - match: "(\\$namespace)[ \\t]+({{identifier}}$)"
       captures:
         1: keyword.control.semianim
         2: string.unquoted.semianim
-    - match: "(@patch)\\s+$"
+    - match: "(\\$patch)\\s+$"
       captures:
         1: keyword.control.semianim
-    - match: "(@defaultfps)[ \\t]+(\\d+)"
+    - match: "(\\$defaultfps)[ \\t]+(\\d+)"
       captures:
         1: keyword.control.semianim
         2: constant.numeric.semianim
-    - match: "(@id)[ \\t]+({{identifier}}$)"
+    - match: "(\\$id)[ \\t]+({{identifier}}$)"
       captures:
         1: keyword.control.semianim
         2: string.unquoted.semianim
-    - match: "(@{{str_keywords}})[ \\t]*(.*)"
+    - match: "(\\${{str_keywords}})[ \\t]*(.*)"
       captures:
         1: keyword.control.semianim
         3: string.unquoted.semianim
